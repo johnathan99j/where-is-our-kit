@@ -79,3 +79,40 @@ a:hover {
 	transition: 0.15s;
 	color: #64b5f6;
 }
+
+@media screen and (max-width: 600px) {
+	h1 {
+		font-size: 2em;
+	}
+
+	#where-is-it {
+		font-size: 1.3em;
+	}
+
+	#the-excuse {
+		font-size: 0.9em;
+	}
+
+	.footer {
+		font-size: 0.7em;
+	}
+}
+
+@media screen and (max-width: 990px) {
+	h1 {
+		font-size: 3em;
+	}
+
+	#where-is-it {
+		font-size: 2em;
+	}
+
+	#the-excuse {
+		font-size: 1.2em;
+	}
+
+	.footer {
+		font-size: 1em;
+	}
+}
+}	
