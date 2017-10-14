@@ -7,6 +7,8 @@
 
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
+		<script type="text/javascript" src="js-cookie.js"></script>
+
 		<link href="https://fonts.googleapis.com/css?family=Roboto:300,700" rel="stylesheet">
 
 		<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
@@ -23,7 +25,15 @@
 			<div class="full-div flex flex-center">
 				<div class="valign">
 					<div class="row" id="magic-container">
-						<h1 class="center">Where The Fuck Is Our Kit?</h1>
+						<h1 class="center" id="title">
+							<span id="title-0">Where</span>
+							<span id="title-1">The</span>
+							<span id="title-2">Fuck</span>
+							<span id="title-3">Is</span>
+							<span id="title-4">Our</span>
+							<span id="title-5">Kit</span>
+							<span id="title-6">?</span>
+						</h1>
 
 						<div class="center" id="where-is-it">.</div>
 						<div class="center" id="the-excuse">.</div>
@@ -43,6 +53,10 @@
 
 	<script type="text/javascript">
 		let animate_time = 600
+
+		let title_animate_time = 700
+		let title_animate_delay = 130
+
 		let container = $('#magic-container')
 		let where_container = $('#where-is-it')
 		let excuse_container = $('#the-excuse')
@@ -52,8 +66,38 @@
 		let excuses=['I thought I told someone', 'Have you tried forgetting about it?', 'We can always buy another one', 'Have you tried turning it off and on again?', 'Just pretend nothing happend', 'It has a label on it though', 'It\'s not the end of the world', 'Just think faster', 'Pub?']
 
 		$(document).ready(function(){
-			var rand_place = places[Math.floor((Math.random() * places.length))];
-			var rand_excuse = excuses[Math.floor((Math.random() * excuses.length))];
+			var done_title_animation = Cookies.get('done_title_animation')
+
+			if (done_title_animation) {
+				animateReasons()
+			} else {
+				Cookies.set('done_title_animation', true, { expires: 1 })
+				animateTitle();
+
+				setTimeout(function() {
+					animateReasons();
+				}, title_animate_delay * $('#title span').length + title_animate_time / 2);
+
+			}
+		});
+
+		function animateTitle() {
+			let sectionContainer = '#title-'
+
+			$('#title span').each(function(i) {
+				$(sectionContainer + i).css('opacity', 0);
+			});
+
+			$('#title span').each(function(i) {
+				$(sectionContainer + i).css('opacity', 0).delay(i * title_animate_delay).animate({
+					opacity: 1
+				}, title_animate_time);
+			});	
+		};
+
+		function animateReasons() {
+			var rand_place = places[Math.floor(Math.random() * places.length)];
+			var rand_excuse = excuses[Math.floor(Math.random() * excuses.length)];
 
 			where_container.html(rand_place + ' ...').animate({
 				opacity: 1,
@@ -61,10 +105,10 @@
 
 				excuse_container.html(rand_excuse).animate({
 					opacity: 0.8,
-				}, animate_time)
+				}, animate_time);
 
-			})
+			});
+		};
 
-		})
 	</script>
 </html>
